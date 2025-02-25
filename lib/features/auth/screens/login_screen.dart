@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:redditclone/core_floder/constants/constants.dart';
+import 'package:redditclone/features/auth/controller/auth_controller.dart';
 import 'package:redditclone/theme/pallete.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
+  void signInWithGoogle(WidgetRef ref){
+    ref.read(authControllerProvider).signInWithGoogle();
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return  Scaffold(
       appBar: AppBar(
         title:Center(
@@ -39,16 +44,24 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
             Center(
-              child: Image.asset(Constants.loginEmotepath,height: 300,)
+              child: Image.asset(Constants.loginEmotepath,height: 400,)
             ),
             const SizedBox(height: 20,),
-            Container(
+            ElevatedButton(
+              onPressed: (){
+                print("inside onPressed");
+                signInWithGoogle(ref);
+              },
+             style: ElevatedButton.styleFrom(
+                backgroundColor: Pallete.greyColor, // Updated way to set background color
+              ),
+            child: Container(
               padding: EdgeInsets.all(8),
               height: 60,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
                 // color: Colors.grey,
-               color: Pallete.darkModeAppTheme.cardColor,
+              //  color: Pallete.darkModeAppTheme.cardColor,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +71,8 @@ class LoginScreen extends StatelessWidget {
                   const Text("continue with google")
                 ],
               ),
-            )
+            ),
+            ),
           ]
         ),
       ),

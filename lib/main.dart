@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:redditclone/features/auth/screens/login_screen.dart';
+import 'package:redditclone/firebase_options.dart';
 import 'package:redditclone/theme/pallete.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+ WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // options: FirebaseOptions.currentPlatform();
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(ProviderScope(child: MyApp()));
+  //  runApp(ProviderScope(child:  const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
